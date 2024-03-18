@@ -1,7 +1,7 @@
 package com.iablonski.crm.eureka.server;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -9,10 +9,9 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class PlannerEurekaServerApplicationTests {
+@SpringBootTest
+class EurekaServerApplicationTests {
 
-	@Autowired
 	private TestRestTemplate restTemplate;
 
 	@Value("${server.port}")
@@ -27,12 +26,20 @@ class PlannerEurekaServerApplicationTests {
 	@Value("${eureka.client.fetch-registry}")
 	private boolean fetchRegistry;
 
-	@Value("${spring.cloud.config.uri}")
+	@Value("${spring.config.import}")
 	private String configServerUri;
+	private String baseUrl;
+
+
+	@BeforeEach
+	public void setUp() {
+		restTemplate = new TestRestTemplate();
+		baseUrl = "http://localhost:" + serverPort;
+	}
 
 	@Test
-	void contextLoads() {
-		String health = restTemplate.getForObject("/actuator/health", String.class);
+	void testServerIsUp() {
+		String health = restTemplate.getForObject(baseUrl + "/actuator/health", String.class);
 		assertEquals("{\"status\":\"UP\"}", health);
 	}
 
@@ -48,7 +55,7 @@ class PlannerEurekaServerApplicationTests {
 
 	@Test
 	void configServerUriTest() {
-		assertEquals("http://localhost:8888", configServerUri);
+		assertEquals("configserver:http://localhost:8888", configServerUri);
 	}
 
 	@Test

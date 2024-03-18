@@ -1,3 +1,4 @@
 rootProject.name = 'crm-system-ms'
 
 includeBuild 'eureka-server'
+includeBuild 'config-server'

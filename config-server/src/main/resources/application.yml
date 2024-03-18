@@ -1,0 +1,15 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/AlexanderIab/crm-system-ms-properties
+          basedir: file://C:/crm-system-ms-properties
+          clone-on-start: true
+          username: AlexanderIab
+          password: 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
+          default-label: main
