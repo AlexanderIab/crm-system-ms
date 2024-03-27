@@ -11,5 +11,5 @@ spring:
           basedir: file://C:/crm-system-ms-properties
           clone-on-start: true
           username: AlexanderIab
-          password: {cipher}MuBXoaEidR1/ixPvDwCS04TmN5rOSzsJ8cuttFDU8q5n+U/UvBwfr0Bf4nOjvz2T
+          password: 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
           default-label: main
